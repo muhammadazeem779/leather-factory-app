@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <body>
+    <h3>Articles</h3>
+    <ul>
+      {% for a in arts %}
+        <li>
+          <a href="{{ url_for('flow', aid=a['article_id']) }}">
+            {{ a['article_code'] }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
