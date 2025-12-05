@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <body>
+    <h3>Flow for {{ art['article_code'] }}</h3>
+
+    <form method="post" action="{{ url_for('flow_add', aid=art['article_id']) }}">
+      <select name="process_id">
+        {% for p in procs %}
+          <option value="{{ p['process_id'] }}">{{ p['name'] }}</option>
+        {% endfor %}
+      </select>
+      <input type="number" name="order" placeholder="Order" required>
+      <button>Add</button>
+    </form>
+
+    <ol>
+      {% for s in steps %}
+        <li>{{ s['sequence_order'] }} - {{ s['process_name'] }}</li>
+      {% endfor %}
+    </ol>
+  </body>
+</html>
