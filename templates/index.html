@@ -1,15 +1,23 @@
-<!doctype html>
-<html>
-  <body>
-    <h3>Articles</h3>
-    <ul>
-      {% for a in arts %}
-        <li>
-          <a href="{{ url_for('flow', aid=a['article_id']) }}">
-            {{ a['article_code'] }}
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="p-4 bg-white shadow-sm rounded">
+  <h3 class="mb-3">Dashboard</h3>
+  <p>Quick links:</p>
+  <ul>
+    <li><a href="{{ url_for('articles') }}">Articles & Process Flows</a></li>
+    <li><a href="{{ url_for('lots') }}">Raw Leather Lots</a></li>
+    <li><a href="{{ url_for('batches') }}">Batches</a></li>
+    <li><a href="{{ url_for('report_costing') }}">Costing Report</a></li>
+  </ul>
+
+  <h5 class="mt-4">Articles</h5>
+  <ul>
+    {% for a in articles %}
+      <li>
+        {{ a['article_code'] }} -
+        <a href="{{ url_for('article_flow', article_id=a['article_id']) }}">Configure Flow</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
