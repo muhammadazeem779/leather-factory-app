@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Raw Leather Lots</h4>
+<form method="post" action="{{ url_for('lots_add') }}" class="row g-2 mb-3">
+  <div class="col-md-3"><input name="lot_code" class="form-control" placeholder="Lot code" required></div>
+  <div class="col-md-3">
+    <select name="vendor_id" class="form-select" required>
+      {% for v in vendors %}
+        <option value="{{ v['vendor_id'] }}">{{ v['name'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><input name="purchase_date" type="date" class="form-control" required></div>
+  <div class="col-md-2"><input name="weight_kg" class="form-control" placeholder="Weight (kg)"></div>
+  <div class="col-md-2"><input name="unit_cost" class="form-control" placeholder="Unit cost"></div>
+  <div class="col-md-2"><input name="currency" class="form-control" value="USD"></div>
+  <div class="col-12"><input name="notes" class="form-control" placeholder="Notes"></div>
+  <div class="col-md-2 d-grid"><button class="btn btn-primary">Add</button></div>
+</form>
+
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>Lot</th><th>Vendor</th><th>Date</th><th>Qty (kg)</th><th>Unit Cost</th><th>Currency</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['lot_code'] }}</td>
+      <td>{{ r['vendor_name'] }}</td>
+      <td>{{ r['purchase_date'] }}</td>
+      <td>{{ r['weight_kg'] }}</td>
+      <td>{{ r['unit_cost'] }}</td>
+      <td>{{ r['currency'] }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
