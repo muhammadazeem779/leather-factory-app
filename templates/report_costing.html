@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Costing (per Batch)</h4>
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>Batch</th><th>Raw Cost</th><th>Chemicals Cost</th><th>Total Cost (Estimate)</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['batch_code'] }}</td>
+      <td>{{ r['raw_cost'] }}</td>
+      <td>{{ r['chemicals_cost'] }}</td>
+      <td>{{ r['total_cost_estimate'] }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
