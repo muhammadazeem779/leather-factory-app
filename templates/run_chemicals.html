@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Chemical Usage per Run</h4>
+<form method="post" action="{{ url_for('run_chemicals_add') }}" class="row g-2 mb-3">
+  <div class="col-md-4">
+    <select name="run_id" class="form-select" required>
+      {% for r in runs %}
+        <option value="{{ r['run_id'] }}">{{ r['label'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="chemical_id" class="form-select" required>
+      {% for c in chemicals %}
+        <option value="{{ c['chemical_id'] }}">{{ c['name'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><input name="qty" class="form-control" placeholder="Qty" required></div>
+  <div class="col-md-2">
+    <select name="unit" class="form-select">
+      <option>kg</option>
+      <option>g</option>
+      <option>L</option>
+      <option>mL</option>
+      <option>pcs</option>
+    </select>
+  </div>
+  <div class="col-md-2"><input name="unit_cost" class="form-control" placeholder="Unit cost (optional)"></div>
+  <div class="col-md-2 d-grid"><button class="btn btn-primary">Add</button></div>
+</form>
+
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>ID</th><th>Batch</th><th>Process</th><th>Chemical</th><th>Qty</th><th>Unit</th><th>Unit Cost</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['id'] }}</td>
+      <td>{{ r['batch_code'] }}</td>
+      <td>{{ r['process_name'] }}</td>
+      <td>{{ r['chemical_name'] }}</td>
+      <td>{{ r['qty'] }}</td>
+      <td>{{ r['unit'] }}</td>
+      <td>{{ r['unit_cost'] or '' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
