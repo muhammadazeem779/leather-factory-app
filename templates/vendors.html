@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Vendors</h4>
+<form method="post" action="{{ url_for('vendors_add') }}" class="row g-2 mb-3">
+  <div class="col-md-3"><input name="name" class="form-control" placeholder="Name" required></div>
+  <div class="col-md-2">
+    <select name="vendor_type" class="form-select">
+      <option value="raw_leather">Raw Leather</option>
+      <option value="chemical">Chemical</option>
+      <option value="service">Service</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
+  <div class="col-md-2"><input name="phone" class="form-control" placeholder="Phone"></div>
+  <div class="col-md-2"><input name="email" class="form-control" placeholder="Email"></div>
+  <div class="col-md-2"><input name="tax_id" class="form-control" placeholder="Tax ID"></div>
+  <div class="col-12"><input name="address_line1" class="form-control mt-2" placeholder="Address line 1"></div>
+  <div class="col-12"><input name="address_line2" class="form-control" placeholder="Address line 2"></div>
+  <div class="col-md-3"><input name="city" class="form-control" placeholder="City"></div>
+  <div class="col-md-2"><input name="state" class="form-control" placeholder="State"></div>
+  <div class="col-md-2"><input name="postal_code" class="form-control" placeholder="Postal Code"></div>
+  <div class="col-md-2"><input name="country" class="form-control" value="USA"></div>
+  <div class="col-md-2">
+    <select name="is_active" class="form-select">
+      <option value="1">Active</option>
+      <option value="0">Inactive</option>
+    </select>
+  </div>
+  <div class="col-md-1 d-grid"><button class="btn btn-primary">Add</button></div>
+</form>
+
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>Name</th><th>Type</th><th>Phone</th><th>Email</th><th>Country</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['name'] }}</td>
+      <td>{{ r['vendor_type'] }}</td>
+      <td>{{ r['phone'] }}</td>
+      <td>{{ r['email'] }}</td>
+      <td>{{ r['country'] }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
