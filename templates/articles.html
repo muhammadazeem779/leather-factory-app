@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Articles (Leather Products)</h4>
+<form method="post" action="{{ url_for('articles_add') }}" class="row g-2 mb-3">
+  <div class="col-md-3"><input name="article_code" class="form-control" placeholder="Code (unique)" required></div>
+  <div class="col-md-7"><input name="description" class="form-control" placeholder="Description"></div>
+  <div class="col-md-2 d-grid"><button class="btn btn-primary">Add</button></div>
+</form>
+
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>Code</th><th>Description</th><th>Flow</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['article_code'] }}</td>
+      <td>{{ r['description'] }}</td>
+      <td>
+        <a class="btn btn-sm btn-outline-primary"
+           href="{{ url_for('article_flow', article_id=r['article_id']) }}">
+          Configure Flow
+        </a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
