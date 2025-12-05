@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Batches</h4>
+<form method="post" action="{{ url_for('batches_add') }}" class="row g-2 mb-3">
+  <div class="col-md-3"><input name="batch_code" class="form-control" placeholder="Batch code" required></div>
+  <div class="col-md-3">
+    <select name="lot_id" class="form-select" required>
+      {% for l in lots %}
+        <option value="{{ l['lot_id'] }}">{{ l['lot_code'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="article_id" class="form-select">
+      <option value="">(optional) Article</option>
+      {% for a in articles %}
+        <option value="{{ a['article_id'] }}">{{ a['article_code'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><input name="start_date" type="date" class="form-control"></div>
+  <div class="col-12"><input name="notes" class="form-control" placeholder="Notes"></div>
+  <div class="col-md-2 d-grid"><button class="btn btn-primary">Add</button></div>
+</form>
+
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>Batch</th><th>Lot</th><th>Article</th><th>Start</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['batch_code'] }}</td>
+      <td>{{ r['lot_code'] }}</td>
+      <td>{{ r['article_code'] or '' }}</td>
+      <td>{{ r['start_date'] or '' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
