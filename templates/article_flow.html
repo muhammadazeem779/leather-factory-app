@@ -1,1 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Process Flow for {{ article['article_code'] }}</h4>
+
+<form class="row g-2 mb-3" method="post" action="{{ url_for('article_flow_add', article_id=article['article_id']) }}">
+  <div class="col-md-4">
+    <select name="process_id" class="form-select" required>
+      {% for p in processes %}
+        <option value="{{ p['process_id'] }}">{{ p['name'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <input name="sequence_order" type="number" class="form-control" placeholder="Order (1..N)" required>
+  </div>
+  <div class="col-md-2 d-grid"><button class="btn btn-primary">Add Step</button></div>
+</form>
+
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>Order</th><th>Process</th><th></th></tr></thead>
+  <tbody>
+  {% for s in flow %}
+    <tr>
+      <td>{{ s['sequence_order'] }}</td>
+      <td>{{ s['process_name'] }}</td>
+      <td>
+        <form method="post" action="{{ url_for('article_flow_delete', article_id=article['article_id'], apf_id=s['apf_id']) }}">
+          <button class="btn btn-sm btn-outline-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
 
