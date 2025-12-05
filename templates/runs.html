@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4>Process Runs</h4>
+<form method="post" action="{{ url_for('runs_add') }}" class="row g-2 mb-3">
+  <div class="col-md-3">
+    <select name="batch_id" class="form-select" required>
+      {% for b in batches %}
+        <option value="{{ b['batch_id'] }}">{{ b['batch_code'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="process_id" class="form-select" required>
+      {% for p in processes %}
+        <option value="{{ p['process_id'] }}">{{ p['name'] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2"><input name="started_at" type="datetime-local" class="form-control"></div>
+  <div class="col-md-2"><input name="ended_at" type="datetime-local" class="form-control"></div>
+  <div class="col-md-2"><input name="operator" class="form-control" placeholder="Operator"></div>
+  <div class="col-md-2"><input name="yield_kg" class="form-control" placeholder="Yield (kg)"></div>
+  <div class="col-12"><input name="notes" class="form-control" placeholder="Notes"></div>
+  <div class="col-md-2 d-grid"><button class="btn btn-primary">Add</button></div>
+</form>
+
+<table class="table table-sm table-striped bg-white shadow-sm">
+  <thead><tr><th>ID</th><th>Batch</th><th>Process</th><th>Start</th><th>End</th><th>Yield</th></tr></thead>
+  <tbody>
+  {% for r in rows %}
+    <tr>
+      <td>{{ r['run_id'] }}</td>
+      <td>{{ r['batch_code'] }}</td>
+      <td>{{ r['process_name'] }}</td>
+      <td>{{ r['started_at'] or '' }}</td>
+      <td>{{ r['ended_at'] or '' }}</td>
+      <td>{{ r['yield_kg'] or '' }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
